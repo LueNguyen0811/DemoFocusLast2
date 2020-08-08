@@ -23,7 +23,7 @@ public class StatsFragment extends Fragment {
     private static StatsFragment instance;
     private SendTextListenner sendTextListenner;
 
-
+//
     public StatsFragment() {
     }
 
