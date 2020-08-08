@@ -1,8 +1,6 @@
 package com.example.demofocuslast.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +10,29 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.demofocuslast.Adapter.CommnuDraw;
-import com.example.demofocuslast.Adapter.CommunicationInterface;
+import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
-public class StatsFragment extends Fragment implements CommnuDraw {
+public class StatsFragment extends Fragment {
     ImageView imgMenu;
     private TextView txtCalendar,txtTaskCompleted, txtMinutesSpent;
     CalendarView calendarView;
 
-    String numberTask = "";
-    private CommunicationInterface Listener;
+
+    private static StatsFragment instance;
+    private SendTextListenner sendTextListenner;
 
 
-    public StatsFragment(CommunicationInterface listener) {
-        if (listener != null) {
-            Listener = listener;
-        }
+    public StatsFragment() {
     }
 
-    public static StatsFragment newInstance(CommunicationInterface listener) {
-        return new StatsFragment(listener);
+    public static StatsFragment getInstance() {
+        if(instance == null){
+            instance = new StatsFragment();
+
+        }
+        return instance;
     }
 
     @Override
@@ -66,10 +65,9 @@ public class StatsFragment extends Fragment implements CommnuDraw {
 
         return view;
     }
-
-
-    @Override
-    public void onReceive(Object text) {
-        txtTaskCompleted.setText((String) text);
+    public void getText(String text){
+        txtTaskCompleted.setText(text);
     }
+
+
 }

@@ -1,9 +1,7 @@
 package com.example.demofocuslast.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -16,20 +14,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.demofocuslast.Adapter.CommnuDraw;
-import com.example.demofocuslast.Adapter.CommunicationInterface;
+import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
 import java.util.Locale;
 
-public class TaskFragment extends Fragment implements CommnuDraw {
+public class TaskFragment extends Fragment {
     TextView txtCoundown;
     ImageView imgUp, imgDown, imgMenu, imgIsland;
     Animation animIsland;
     Button btnStart;
 
-    private CommunicationInterface mListener;
+    private SendTextListenner sendTextListenner;
+    private static TaskFragment instance;
 
 
     private CountDownTimer countDownTimer;
@@ -37,17 +35,22 @@ public class TaskFragment extends Fragment implements CommnuDraw {
     private long along;
     String timeSet = "";
 
-    String taskComplete;
+    String taskComplete = "10";
 
-    public TaskFragment(CommunicationInterface listener) {
-        if (listener != null) {
-            mListener = listener;
-        }
+    public TaskFragment() {
+
     }
 
 
-    public static TaskFragment newInstance(CommunicationInterface mListener) {
-        return new TaskFragment(mListener);
+    public static TaskFragment getInstance() {
+        if(instance == null){
+            instance = new TaskFragment();
+        }
+        return instance;
+    }
+
+    public void setSendTextListenner(SendTextListenner sendTextListenner){
+        this.sendTextListenner = sendTextListenner;
     }
 
     @Override
@@ -117,8 +120,7 @@ public class TaskFragment extends Fragment implements CommnuDraw {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendTaskToStats();
-                sendTaskToStats();
+                initView(view);
                 if (mTimeRunning) {
                     pauseTimer();
                 } else {
@@ -131,7 +133,9 @@ public class TaskFragment extends Fragment implements CommnuDraw {
         return view;
     }
 
-
+    public void initView (View view){
+        sendTextListenner.sendText(taskComplete);
+    }
 
     private void startTimer() {
         String textTime = txtCoundown.getText().toString();
@@ -183,15 +187,7 @@ public class TaskFragment extends Fragment implements CommnuDraw {
         imgIsland.setAnimation(animIsland);
 
     }
-    private void sendTaskToStats() {
-        if(mListener != null) {
-            mListener.onSend("10", TaskFragment.this);
-        }
-    }
 
 
-    @Override
-    public void onReceive(Object text) {
 
-    }
 }

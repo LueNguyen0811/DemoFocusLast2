@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.TaskFragment"
-    android:background="@drawable/back_ground_fist">
+    android:background="@drawable/back_ground_fist"
+    android:id="@+id/task_fragment">
 
     <LinearLayout
         android:id="@+id/contentView"

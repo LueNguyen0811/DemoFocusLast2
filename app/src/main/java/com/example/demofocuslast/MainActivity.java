@@ -6,16 +6,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.example.demofocuslast.Adapter.CommnuDraw;
-import com.example.demofocuslast.Adapter.CommunicationInterface;
+import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.Fragment.BadgesFragment;
 import com.example.demofocuslast.Fragment.PlantsFragment;
 import com.example.demofocuslast.Fragment.SettingsFragment;
@@ -26,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CommunicationInterface {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SendTextListenner {
     private static final float END_SCALE = 0.7f;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
@@ -35,30 +32,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TaskFragment taskFragment;
     StatsFragment statsFragment;
 
-    private List<CommnuDraw> fragments;
-
-
-    public static final String[] DRAW_FRAGMENT = {
-            "Task", "Stats","Badges", "Plants","Setting"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        fragments = new ArrayList<>();
-        fragments.add(StatsFragment.newInstance(this));
-        fragments.add(TaskFragment.newInstance(this));
-//        fragment.add(BadgesFragment.newInstance());
-//        fragment.add(PlantsFragment.newInstance());
-//        fragment.add(SettingsFragment.newInstance());
+        initView();
 
 
         addControls();
         navigationDrawer();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment(this)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment()).commit();
 
     }
 
@@ -124,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_task:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment(this)).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment()).commit();
                 break;
             case R.id.nav_Stats:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new StatsFragment(this)).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new StatsFragment()).commit();
                 break;
             case R.id.nav_badges:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new BadgesFragment()).commit();
@@ -149,11 +134,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.openDrawer(GravityCompat.START);
 
     }
+    public void initView(){
+        TaskFragment.getInstance().setSendTextListenner(this);
+    }
 
     @Override
-    public void onSend(Object text, Fragment fragment) {
-        for(CommnuDraw f : fragments){
-            if(!f.equals(fragment)) f.onReceive(text);
-        }
+    public void sendText(String text) {
+        StatsFragment.getInstance().getText(text);
     }
 }
