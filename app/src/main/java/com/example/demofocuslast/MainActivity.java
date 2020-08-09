@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.Fragment.BadgesFragment;
@@ -37,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        initView();
 
 
         addControls();
@@ -134,12 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.openDrawer(GravityCompat.START);
 
     }
-    public void initView(){
-        TaskFragment.getInstance().setSendTextListenner(this);
-    }
+
 
     @Override
     public void sendText(String text) {
-        StatsFragment.getInstance().getText(text);
+        Toast.makeText(MainActivity.this,"text mainactivity" + text, Toast.LENGTH_LONG).show();
+        TaskFragment.getInstance().setSendTextListenner(StatsFragment.getInstance().getSendTextListenner());
     }
 }

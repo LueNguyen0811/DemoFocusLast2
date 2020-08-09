@@ -1,7 +1,9 @@
 package com.example.demofocuslast.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -13,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
@@ -120,7 +123,8 @@ public class TaskFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initView(view);
+                sendTextListenner.sendText(taskComplete);
+
                 if (mTimeRunning) {
                     pauseTimer();
                 } else {
@@ -133,9 +137,7 @@ public class TaskFragment extends Fragment {
         return view;
     }
 
-    public void initView (View view){
-        sendTextListenner.sendText(taskComplete);
-    }
+
 
     private void startTimer() {
         String textTime = txtCoundown.getText().toString();
@@ -188,6 +190,14 @@ public class TaskFragment extends Fragment {
 
     }
 
-
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof MainActivity){
+            this.sendTextListenner = (SendTextListenner) context;
+        }
+        else{
+            throw  new RuntimeException(context.toString());
+        }
+    }
 }

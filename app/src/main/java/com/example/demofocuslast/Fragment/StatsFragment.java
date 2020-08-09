@@ -1,31 +1,37 @@
 package com.example.demofocuslast.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.demofocuslast.Adapter.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
-public class StatsFragment extends Fragment {
+public class StatsFragment extends Fragment implements SendTextListenner {
     ImageView imgMenu;
     private TextView txtCalendar,txtTaskCompleted, txtMinutesSpent;
     CalendarView calendarView;
-
+    SendTextListenner sendTextListenner;
 
     private static StatsFragment instance;
-    private SendTextListenner sendTextListenner;
-
-//
+    String texts = " ";
     public StatsFragment() {
     }
+    public SendTextListenner getSendTextListenner(){
+        return sendTextListenner;
+    }
+
 
     public static StatsFragment getInstance() {
         if(instance == null){
@@ -47,11 +53,7 @@ public class StatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
         //mapping
-        imgMenu = view.findViewById(R.id.imgMenu);
-        txtCalendar = view.findViewById(R.id.txtCalendar);
-        txtMinutesSpent = view.findViewById(R.id.txtMinutesCompleted);
-        txtTaskCompleted = view.findViewById(R.id.txtTaskCompleted);
-        calendarView = view.findViewById(R.id.calendar_view);
+        addControlers(view);
 
 
         //events
@@ -65,9 +67,23 @@ public class StatsFragment extends Fragment {
 
         return view;
     }
-    public void getText(String text){
-        txtTaskCompleted.setText(text);
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+    private void addControlers(View view){
+        imgMenu = view.findViewById(R.id.imgMenu);
+        txtCalendar = view.findViewById(R.id.txtCalendar);
+        txtMinutesSpent = view.findViewById(R.id.txtMinutesCompleted);
+        txtTaskCompleted = view.findViewById(R.id.txtTaskCompleted);
+        calendarView = view.findViewById(R.id.calendar_view);
+
+
     }
 
-
+    @Override
+    public void sendText(String text) {
+        txtTaskCompleted.setText(text);
+    }
 }
