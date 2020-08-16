@@ -1,6 +1,7 @@
 package com.example.demofocuslast.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +39,12 @@ public class HomeFragment extends Fragment {
         this.sendTextListenner = sendTextListenner;
     }
 
-    public void setSendImageListenner(SendImageListenner sendImageListenner){
+    public void setSendImageListenner(SendImageListenner sendImageListenner) {
         this.sendImageListenner = sendImageListenner;
     }
+
     public static HomeFragment newInstance() {
-      return new HomeFragment();
+        return new HomeFragment();
     }
 
     @Override
@@ -59,7 +61,7 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         imgMenu = view.findViewById(R.id.imgMenu);
         txtCentHome = view.findViewById(R.id.txtCentHome);
-        if(centHomes != null){
+        if (centHomes != null) {
             txtCentHome.setText(centHome2);
         }
         sendTextListenner.sendCent(centHome2);
@@ -71,13 +73,28 @@ public class HomeFragment extends Fragment {
         });
 
 
+        viewPagerAdapter = new ViewPagerAdapter(getContext().getApplicationContext(), sendImageListenner);
 
-        viewPagerAdapter = new ViewPagerAdapter(getContext().getApplicationContext(),sendImageListenner);
-        viewPager.setPageTransformer(true , new ZoomOutPageTransformer() );
+
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPagerAdapter);
 
-        return view ;
+        return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
+
+        String cent = sharedPreferencesCent.getString("keyCent", "");
+        txtCentHome.setText(cent);
+//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("imageSave",Context.MODE_PRIVATE);
+//        int images = sharedPreferences.getInt("keyImg", 0);
+//        viewPagerAdapter.getItemPosition(images);
+//        viewPager.setAdapter(viewPagerAdapter);
+    }
+
     public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.85f;
         private static final float MIN_ALPHA = 0.5f;
@@ -116,14 +133,16 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    public void receiveCent(String cent){
+
+    public void receiveCent(String cent) {
         centHomes = cent;
         centHome2 = centHomes;
-        if(txtCentHome != null){
+        if (txtCentHome != null) {
             txtCentHome.setText(centHomes);
         }
 
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

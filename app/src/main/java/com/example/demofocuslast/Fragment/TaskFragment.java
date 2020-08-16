@@ -123,7 +123,7 @@ public class TaskFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                String [] split = timeSet.split(":");
+                String[] split = timeSet.split(":");
                 minutes = Integer.parseInt(split[1]);
                 taskMinutesComplete = taskMinutesComplete + minutes;
                 taskComplete = taskComplete + 1;
@@ -139,7 +139,7 @@ public class TaskFragment extends Fragment {
             }
         });
 
-        if(image != 0){
+        if (image != 0) {
             imgIsland.setImageResource(image);
         }
         return view;
@@ -186,21 +186,41 @@ public class TaskFragment extends Fragment {
         taskComplete = 0;
         taskMinutesComplete = 0;
         minutes = 0;
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime",Context.MODE_PRIVATE);
+
+        //Save time
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("key",timeSet);
+        editor.putString("key", timeSet);
         editor.commit();
+
+        //Save cent
+        SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorCent = sharedPreferencesCent.edit();
+        editorCent.putString("keyCent", String.valueOf(centTask));
+        editorCent.commit();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        //Save time
         txtCoundown.setText(timeSet);
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime",Context.MODE_PRIVATE);
-        timeSet = sharedPreferences.getString("key","");
-        if(timeSet != null) {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime", Context.MODE_PRIVATE);
+        timeSet = sharedPreferences.getString("key", "");
+        if (timeSet != "") {
             txtCoundown.setText(timeSet);
         }
+        //Save image
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("imageSave", Context.MODE_PRIVATE);
+
+        int imageSharef = sharedPreferences1.getInt("keyImg", R.drawable.third_home);
+        imgIsland.setImageResource(imageSharef);
+
+        //get cent
+        SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
+        String centTasks = sharedPreferencesCent.getString("keyCent", "0");
+        centTask = Integer.parseInt(centTasks);
+        txtCentTask.setText(String.valueOf(centTask));
     }
 
     private void pauseTimer() {
@@ -219,8 +239,8 @@ public class TaskFragment extends Fragment {
     }
 
     public void sendImage(int imgImage) {
-        image =imgImage;
-        if(imgIsland != null) {
+        image = imgImage;
+        if (imgIsland != null) {
             imgIsland.setImageResource(image);
         }
     }
