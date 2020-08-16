@@ -1,6 +1,7 @@
 package com.example.demofocuslast.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.demofocuslast.Adapter.SendTextListenner;
+import com.example.demofocuslast.Interface.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
@@ -25,34 +25,29 @@ import java.util.Locale;
 
 public class TaskFragment extends Fragment {
     TextView txtCoundown;
+    TextView txtCentTask;
     ImageView imgUp, imgDown, imgMenu, imgIsland;
     Animation animIsland;
     Button btnStart;
 
     private SendTextListenner sendTextListenner;
-    private static TaskFragment instance;
-
-
     private CountDownTimer countDownTimer;
-    private boolean mTimeRunning;
+    private boolean mTimeRunning = false;
     private long along;
     String timeSet = "";
-
-    String taskComplete = "10";
+    int taskComplete = 0;
+    int taskMinutesComplete = 0;
+    int centTask = 0;
+    int image = 0;
+    int minutes = 0;
+    private SharedPreferences sharedPreferences;
 
     public TaskFragment() {
 
     }
 
 
-    public static TaskFragment getInstance() {
-        if(instance == null){
-            instance = new TaskFragment();
-        }
-        return instance;
-    }
-
-    public void setSendTextListenner(SendTextListenner sendTextListenner){
+    public void setSendTextListenner(SendTextListenner sendTextListenner) {
         this.sendTextListenner = sendTextListenner;
     }
 
@@ -68,6 +63,7 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         //mapping
+        txtCentTask = view.findViewById(R.id.txtCentTask);
         txtCoundown = view.findViewById(R.id.txtCoundown);
         imgDown = view.findViewById(R.id.imgDown);
         imgIsland = view.findViewById(R.id.imgIsland);
@@ -82,7 +78,9 @@ public class TaskFragment extends Fragment {
                 ((MainActivity) getActivity()).openDrawer();
             }
         });
-
+//        sharedPreferences = this.getActivity().getSharedPreferences("coundown",Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("key", String.valueOf(txtCoundown.getText()));
 
         imgUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,19 +90,20 @@ public class TaskFragment extends Fragment {
                 int time = Integer.parseInt(splitTime[1]);
                 int hour = 0;
                 if (time <= 55) {
-
                     time = time + 5;
                     int second = 0;
                     String dis = String.format(Locale.getDefault(), "%02d:%02d:%02d", hour, time, second);
+//                    editor.putString("key", dis);
                     txtCoundown.setText(dis);
                     timeSet = (String) txtCoundown.getText();
                 }
             }
         });
+        final String textTime = txtCoundown.getText().toString();
+        final String[] splitTime = textTime.split(":");
         imgDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String textTime = txtCoundown.getText().toString();
                 final String[] splitTime = textTime.split(":");
                 int time = Integer.parseInt(splitTime[1]);
                 int second = Integer.parseInt(splitTime[2]);
@@ -121,10 +120,17 @@ public class TaskFragment extends Fragment {
 
         //countdown
         btnStart.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                sendTextListenner.sendText(taskComplete);
-
+                String [] split = timeSet.split(":");
+                minutes = Integer.parseInt(split[1]);
+                taskMinutesComplete = taskMinutesComplete + minutes;
+                taskComplete = taskComplete + 1;
+                centTask = centTask + 1;
+                txtCentTask.setText(String.valueOf(centTask));
+                sendTextListenner.sendCent(String.valueOf(centTask));
+                sendTextListenner.sendText(String.valueOf(taskComplete), String.valueOf(taskMinutesComplete));
                 if (mTimeRunning) {
                     pauseTimer();
                 } else {
@@ -133,15 +139,17 @@ public class TaskFragment extends Fragment {
             }
         });
 
-
+        if(image != 0){
+            imgIsland.setImageResource(image);
+        }
         return view;
     }
 
 
-
     private void startTimer() {
+        mTimeRunning = true;
         String textTime = txtCoundown.getText().toString();
-        String[] splitTime = textTime.split(":");
+        final String[] splitTime = textTime.split(":");
         int h = Integer.parseInt(splitTime[0]);
         final int m = Integer.parseInt(splitTime[1]) * 60000;
         countDownTimer = new CountDownTimer(m, 1000) {
@@ -155,7 +163,8 @@ public class TaskFragment extends Fragment {
 
                 String dis = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
                 txtCoundown.setText(dis);
-
+                btnStart.setText("Stop");
+                btnStart.setBackgroundResource(R.drawable.mybuttonpause);
             }
 
             @Override
@@ -163,24 +172,43 @@ public class TaskFragment extends Fragment {
                 mTimeRunning = false;
                 btnStart.setText("Start");
                 btnStart.setBackgroundResource(R.drawable.mybutton);
-                taskComplete = taskComplete + 1;
+
 
             }
         }.start();
-        mTimeRunning = true;
-        btnStart.setText("Stop");
-        btnStart.setBackgroundResource(R.drawable.mybuttonpause);
-
         animationImage();
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        taskComplete = 0;
+        taskMinutesComplete = 0;
+        minutes = 0;
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("key",timeSet);
+        editor.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        txtCoundown.setText(timeSet);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime",Context.MODE_PRIVATE);
+        timeSet = sharedPreferences.getString("key","");
+        if(timeSet != null) {
+            txtCoundown.setText(timeSet);
+        }
+    }
+
     private void pauseTimer() {
         countDownTimer.cancel();
-        btnStart.setText("Start");
-        btnStart.setBackgroundResource(R.drawable.mybutton);
         mTimeRunning = false;
+        btnStart.setText("Start");
         txtCoundown.setText(timeSet);
+        btnStart.setBackgroundResource(R.drawable.mybutton);
         imgIsland.setAnimation(null);
     }
 
@@ -190,14 +218,10 @@ public class TaskFragment extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if(context instanceof MainActivity){
-            this.sendTextListenner = (SendTextListenner) context;
-        }
-        else{
-            throw  new RuntimeException(context.toString());
+    public void sendImage(int imgImage) {
+        image =imgImage;
+        if(imgIsland != null) {
+            imgIsland.setImageResource(image);
         }
     }
 }

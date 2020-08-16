@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,25 +12,27 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.demofocuslast.Adapter.SendTextListenner;
+import com.example.demofocuslast.Interface.SendImageListenner;
+import com.example.demofocuslast.Interface.SendTextListenner;
 import com.example.demofocuslast.Fragment.BadgesFragment;
-import com.example.demofocuslast.Fragment.PlantsFragment;
+import com.example.demofocuslast.Fragment.HomeFragment;
 import com.example.demofocuslast.Fragment.SettingsFragment;
 import com.example.demofocuslast.Fragment.StatsFragment;
 import com.example.demofocuslast.Fragment.TaskFragment;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SendTextListenner {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SendTextListenner, SendImageListenner {
     private static final float END_SCALE = 0.7f;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
 
-    TaskFragment taskFragment;
-    StatsFragment statsFragment;
+    TaskFragment taskFragment = new TaskFragment();
+    StatsFragment statsFragment = new StatsFragment();
+    BadgesFragment badgesFragment = new BadgesFragment();
+    HomeFragment homeFragment = new HomeFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         addControls();
         navigationDrawer();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,taskFragment).commit();
+        taskFragment.setSendTextListenner(this);
+        homeFragment.setSendImageListenner(this);
+        homeFragment.setSendTextListenner(this);
+        statsFragment.setSendTextListenner(this);
+
 
     }
 
@@ -108,20 +114,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_task:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new TaskFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,taskFragment).commit();
                 break;
             case R.id.nav_Stats:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new StatsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,statsFragment).commit();
                 break;
             case R.id.nav_badges:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new BadgesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,badgesFragment).commit();
                 break;
             case R.id.nav_plants:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new PlantsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,homeFragment).commit();
                 break;
             case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new SettingsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,settingsFragment).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -134,10 +140,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+//
+//    @Override
+//    public void sendText(String text) {
+//        statsFragment.sendText(text);
+//    }
 
     @Override
-    public void sendText(String text) {
-        Toast.makeText(MainActivity.this,"text mainactivity" + text, Toast.LENGTH_LONG).show();
-        TaskFragment.getInstance().setSendTextListenner(StatsFragment.getInstance().getSendTextListenner());
+    public void sendText(String textNumberTask, String textNumberMinutes) {
+        statsFragment.sendText(textNumberTask,textNumberMinutes);
+    }
+
+    @Override
+    public void sendCent(String cent) {
+        homeFragment.receiveCent(cent);
+
+    }
+
+    @Override
+    public void sendTotal(String textTotalTask, String textTotalMinutes) {
+       badgesFragment.recieveText(textTotalTask,textTotalMinutes);
+    }
+
+    @Override
+    public void sendImage(int homeImage) {
+        taskFragment.sendImage(homeImage);
     }
 }
