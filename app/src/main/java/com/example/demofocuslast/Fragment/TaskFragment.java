@@ -99,11 +99,10 @@ public class TaskFragment extends Fragment {
                 }
             }
         });
-        final String textTime = txtCoundown.getText().toString();
-        final String[] splitTime = textTime.split(":");
         imgDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String textTime = txtCoundown.getText().toString();
                 final String[] splitTime = textTime.split(":");
                 int time = Integer.parseInt(splitTime[1]);
                 int second = Integer.parseInt(splitTime[2]);
@@ -206,7 +205,7 @@ public class TaskFragment extends Fragment {
         //Save time
         txtCoundown.setText(timeSet);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime", Context.MODE_PRIVATE);
-        timeSet = sharedPreferences.getString("key", "");
+        timeSet = sharedPreferences.getString("key", String.valueOf(txtCoundown.getText()));
         if (timeSet != "") {
             txtCoundown.setText(timeSet);
         }

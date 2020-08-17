@@ -20,9 +20,12 @@ import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 public class StatsFragment extends Fragment {
@@ -37,8 +40,6 @@ public class StatsFragment extends Fragment {
     int totalMinutes = 0;
     int totalTasks = 0;
     int totalMinutess = 0;
-    int getTotalTask = 0;
-    int getTotalMinutes = 0;
     ArrayList<Integer> arrayTask = new ArrayList<>();
     ArrayList<Integer> arrayMinutes = new ArrayList<>();
 
@@ -48,8 +49,6 @@ public class StatsFragment extends Fragment {
 
     public StatsFragment() {
     }
-
-
     public void setSendTextListenner(SendTextListenner sendTextListenner) {
         this.sendTextListenner = sendTextListenner;
     }
@@ -79,9 +78,6 @@ public class StatsFragment extends Fragment {
             txtTaskCompleted.setText(taskNumber);
             txtMinutesSpent.setText(taskMinutes);
         }
-
-
-
         getDataCalenda();
         return view;
     }
@@ -97,13 +93,15 @@ public class StatsFragment extends Fragment {
         key = dinhDangNgay.format(calendar.getTime());
         setData();
         loadData();
-
-
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 key = (i + "" + (i1 + 1) + "" + i2);
                 loadData();
+                Date date = new Date(i-1900,(i1),i2);
+                DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                String datePick = dateFormat.format(date);
+                txtCalendar.setText(datePick);
             }
         });
 
@@ -132,7 +130,6 @@ public class StatsFragment extends Fragment {
         editor.putString("keyMinutes", String.valueOf(totalMinutess));
         editor.commit();
         sendTextListenner.sendTotal(String.valueOf(totalTasks),String.valueOf(totalMinutess));
-        Toast.makeText(getActivity(),totalMinutess + " " + totalTasks,Toast.LENGTH_SHORT).show();
     }
 
     public void sendText(String text, String text2) {
@@ -149,6 +146,10 @@ public class StatsFragment extends Fragment {
         super.onResume();
         taskMinutes = "0";
         taskNumber ="0";
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        Date currentDate = new Date();
+        String currenDateString = dateFormat.format(currentDate);
+        txtCalendar.setText(currenDateString);
     }
 
     @Override

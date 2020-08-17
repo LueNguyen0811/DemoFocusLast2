@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,7 +20,11 @@ import com.example.demofocuslast.Interface.SendImageListenner;
 import com.example.demofocuslast.Interface.SendTextListenner;
 import com.example.demofocuslast.Adapter.ViewPagerAdapter;
 import com.example.demofocuslast.MainActivity;
+import com.example.demofocuslast.Model.ViewPageModel;
 import com.example.demofocuslast.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     ImageView imgMenu;
@@ -30,6 +36,7 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private String centHomes = null;
     private String centHome2 = null;
+    private List<ViewPageModel> modelList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,10 +48,6 @@ public class HomeFragment extends Fragment {
 
     public void setSendImageListenner(SendImageListenner sendImageListenner) {
         this.sendImageListenner = sendImageListenner;
-    }
-
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
     }
 
     @Override
@@ -61,10 +64,15 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         imgMenu = view.findViewById(R.id.imgMenu);
         txtCentHome = view.findViewById(R.id.txtCentHome);
+        btnGet = view.findViewById(R.id.btnGet);
+
+        modelList = new ArrayList<>();
+        addView();
+
         if (centHomes != null) {
             txtCentHome.setText(centHome2);
         }
-        sendTextListenner.sendCent(centHome2);
+
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,14 +81,41 @@ public class HomeFragment extends Fragment {
         });
 
 
-        viewPagerAdapter = new ViewPagerAdapter(getContext().getApplicationContext(), sendImageListenner);
-
-
+        viewPagerAdapter = new ViewPagerAdapter(modelList, getContext().getApplicationContext(), sendImageListenner);
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPagerAdapter);
 
+        sendTextListenner.sendCent(centHome2);
+
         return view;
     }
+
+    private void addView() {
+        int imgHomes[] = {
+                R.drawable.third_home, R.drawable.second_home, R.drawable.island, R.drawable.four_home
+        };
+        String decs[] = {
+                "It is your fist house! Try to get a new house", "It is your fist house! Try to get a new house",
+                "It is your fist house! Try to get a new house", "It is your fist house! Try to get a new house",
+        };
+        String homeNames[] = {
+                "Fist Home", "Second Home", "Third Home", "Four Home"
+        };
+        int homePirces[] = {0, 60, 100, 140};
+
+        int buttonSelect[] = {R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent};
+        String titleButton[] = {"Select", "Select", "Select", "Select"};
+        for (int i = 0; i < imgHomes.length; i++) {
+            ViewPageModel viewPageModel = new ViewPageModel();
+            viewPageModel.setImageHome(imgHomes[i]);
+            viewPageModel.setHomePrice(homePirces[i]);
+            viewPageModel.setDesc(decs[i]);
+            viewPageModel.setHomeName(homeNames[i]);
+
+            modelList.add(viewPageModel);
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -89,10 +124,6 @@ public class HomeFragment extends Fragment {
 
         String cent = sharedPreferencesCent.getString("keyCent", "");
         txtCentHome.setText(cent);
-//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("imageSave",Context.MODE_PRIVATE);
-//        int images = sharedPreferences.getInt("keyImg", 0);
-//        viewPagerAdapter.getItemPosition(images);
-//        viewPager.setAdapter(viewPagerAdapter);
     }
 
     public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
