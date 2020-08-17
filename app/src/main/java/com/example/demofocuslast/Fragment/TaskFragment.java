@@ -190,13 +190,13 @@ public class TaskFragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("controlTime", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("key", timeSet);
-        editor.commit();
+        editor.apply();
 
         //Save cent
         SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editorCent = sharedPreferencesCent.edit();
         editorCent.putString("keyCent", String.valueOf(centTask));
-        editorCent.commit();
+        editorCent.apply();
     }
 
     @Override
@@ -217,7 +217,7 @@ public class TaskFragment extends Fragment {
 
         //get cent
         SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
-        String centTasks = sharedPreferencesCent.getString("keyCent", "0");
+        String centTasks = sharedPreferencesCent.getString("keyCent", "200");
         centTask = Integer.parseInt(centTasks);
         txtCentTask.setText(String.valueOf(centTask));
     }

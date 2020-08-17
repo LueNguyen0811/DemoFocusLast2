@@ -128,7 +128,7 @@ public class StatsFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("keyTask", String.valueOf(totalTasks));
         editor.putString("keyMinutes", String.valueOf(totalMinutess));
-        editor.commit();
+        editor.apply();
         sendTextListenner.sendTotal(String.valueOf(totalTasks),String.valueOf(totalMinutess));
     }
 
@@ -185,12 +185,12 @@ public class StatsFragment extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(key, String.valueOf(totalTask));
             editor.putString(key + "minutes", String.valueOf(totalMinutes));
-            editor.commit();
+            editor.apply();
         } else {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(key, taskNumber);
             editor.putString(key + "minutes", taskMinutes);
-            editor.commit();
+            editor.apply();
         }
     }
 //

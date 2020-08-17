@@ -81,13 +81,28 @@ public class HomeFragment extends Fragment {
         });
 
 
-        viewPagerAdapter = new ViewPagerAdapter(modelList, getContext().getApplicationContext(), sendImageListenner);
+        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new PlantsFragment(0, modelList.get(0), sendImageListenner, updateUi));
+        viewPagerAdapter.addFragment(new PlantsFragment(1, modelList.get(1), sendImageListenner, updateUi));
+        viewPagerAdapter.addFragment(new PlantsFragment(2, modelList.get(2), sendImageListenner, updateUi));
+        viewPagerAdapter.addFragment(new PlantsFragment(3, modelList.get(3), sendImageListenner, updateUi));
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPagerAdapter);
-
+        viewPager.setOffscreenPageLimit(4);
         sendTextListenner.sendCent(centHome2);
 
         return view;
+    }
+
+    private UpdateUi updateUi = new UpdateUi() {
+        @Override
+        public void updateUi(int position) {
+            viewPagerAdapter.updateUi(position);
+        }
+    };
+
+    interface UpdateUi {
+        void updateUi(int position);
     }
 
     private void addView() {
@@ -122,7 +137,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
         SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
 
-        String cent = sharedPreferencesCent.getString("keyCent", "");
+        String cent = sharedPreferencesCent.getString("keyCent", "200");
         txtCentHome.setText(cent);
     }
 
