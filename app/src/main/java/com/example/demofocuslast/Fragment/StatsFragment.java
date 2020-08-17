@@ -193,7 +193,7 @@ public class StatsFragment extends Fragment {
             editor.commit();
         }
     }
-
+//
     private void loadData() {
         txtTaskCompleted.setText(sharedPreferences.getString(key, "0"));
         txtMinutesSpent.setText(sharedPreferences.getString(key + "minutes", "0"));
