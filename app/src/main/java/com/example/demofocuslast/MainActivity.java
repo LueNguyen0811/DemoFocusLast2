@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void animateNavDrawer() {
         drawerLayout.setScrimColor(getResources().getColor(R.color.colorAccent));
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-
-
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                 float diffScalseOffSset = slideOffset * (1 - END_SCALE);
@@ -87,7 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-
+                homeFragment = new HomeFragment();
+                homeFragment.setSendImageListenner(MainActivity.this);
+                homeFragment.setSendTextListenner(MainActivity.this);
             }
 
             @Override
@@ -153,8 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void sendCent(String cent) {
-        homeFragment.receiveCent(cent);
-
+//        homeFragment.receiveCent(cent);
     }
 
     @Override

@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setOffscreenPageLimit(4);
-        sendTextListenner.sendCent(centHome2);
+//        sendTextListenner.sendCent(centHome2);
 
         return view;
     }
