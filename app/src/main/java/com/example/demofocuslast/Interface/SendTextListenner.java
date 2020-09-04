@@ -4,4 +4,5 @@ public interface SendTextListenner {
     void sendText(String textNumberTask, String textNumberMinutes);
     void sendCent(String cent);
     void sendTotal(String textTotalTask, String textTotalMinutes);
+    void sendPhoneNumber(String phoneNumber);
 }

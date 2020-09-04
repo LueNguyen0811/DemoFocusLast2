@@ -1,4 +1,4 @@
-package com.example.demofocuslast.Fragment;
+package com.example.demofocuslast.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.demofocuslast.MainActivity;

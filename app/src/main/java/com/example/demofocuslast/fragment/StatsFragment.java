@@ -1,16 +1,14 @@
-package com.example.demofocuslast.Fragment;
+package com.example.demofocuslast.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,13 +17,11 @@ import com.example.demofocuslast.Interface.SendTextListenner;
 import com.example.demofocuslast.MainActivity;
 import com.example.demofocuslast.R;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Map;
 
 public class StatsFragment extends Fragment {

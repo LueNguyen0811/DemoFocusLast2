@@ -1,10 +1,9 @@
-package com.example.demofocuslast.Fragment;
+package com.example.demofocuslast.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -122,14 +121,7 @@ public class TaskFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                String[] split = timeSet.split(":");
-                minutes = Integer.parseInt(split[1]);
-                taskMinutesComplete = taskMinutesComplete + minutes;
-                taskComplete = taskComplete + 1;
-                centTask = centTask + 1;
-                txtCentTask.setText(String.valueOf(centTask));
-                sendTextListenner.sendCent(String.valueOf(centTask));
-                sendTextListenner.sendText(String.valueOf(taskComplete), String.valueOf(taskMinutesComplete));
+
                 if (mTimeRunning) {
                     pauseTimer();
                 } else {
@@ -171,7 +163,15 @@ public class TaskFragment extends Fragment {
                 mTimeRunning = false;
                 btnStart.setText("Start");
                 btnStart.setBackgroundResource(R.drawable.mybutton);
-
+                //
+                String[] split = timeSet.split(":");
+                minutes = Integer.parseInt(split[1]);
+                taskMinutesComplete = taskMinutesComplete + minutes;
+                taskComplete = taskComplete + 1;
+                centTask = centTask + 1;
+                txtCentTask.setText(String.valueOf(centTask));
+                sendTextListenner.sendCent(String.valueOf(centTask));
+                sendTextListenner.sendText(String.valueOf(taskComplete), String.valueOf(taskMinutesComplete));
 
             }
         }.start();
@@ -217,7 +217,7 @@ public class TaskFragment extends Fragment {
 
         //get cent
         SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
-        String centTasks = sharedPreferencesCent.getString("keyCent", "200");
+        String centTasks = sharedPreferencesCent.getString("keyCent", "0");
         centTask = Integer.parseInt(centTasks);
         txtCentTask.setText(String.valueOf(centTask));
     }

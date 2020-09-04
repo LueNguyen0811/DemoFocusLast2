@@ -1,4 +1,4 @@
-package com.example.demofocuslast.Fragment;
+package com.example.demofocuslast.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,9 +16,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.demofocuslast.Interface.SendImageListenner;
 import com.example.demofocuslast.Interface.SendTextListenner;
-import com.example.demofocuslast.Adapter.ViewPagerAdapter;
+import com.example.demofocuslast.adapter.ViewPagerAdapter;
 import com.example.demofocuslast.MainActivity;
-import com.example.demofocuslast.Model.ViewPageModel;
+import com.example.demofocuslast.model.ViewPageModel;
 import com.example.demofocuslast.R;
 
 import java.util.ArrayList;
@@ -80,7 +78,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         viewPagerAdapter.addFragment(new PlantsFragment(0, modelList.get(0), sendImageListenner, updateUi));
         viewPagerAdapter.addFragment(new PlantsFragment(1, modelList.get(1), sendImageListenner, updateUi));
@@ -117,9 +114,6 @@ public class HomeFragment extends Fragment {
                 "Fist Home", "Second Home", "Third Home", "Four Home"
         };
         int homePirces[] = {0, 60, 100, 140};
-
-        int buttonSelect[] = {R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent, R.drawable.mbuttoncurrent};
-        String titleButton[] = {"Select", "Select", "Select", "Select"};
         for (int i = 0; i < imgHomes.length; i++) {
             ViewPageModel viewPageModel = new ViewPageModel();
             viewPageModel.setImageHome(imgHomes[i]);
@@ -137,7 +131,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
         SharedPreferences sharedPreferencesCent = this.getActivity().getSharedPreferences("centData", Context.MODE_PRIVATE);
 
-        String cent = sharedPreferencesCent.getString("keyCent", "200");
+        String cent = sharedPreferencesCent.getString("keyCent", "0");
         txtCentHome.setText(cent);
     }
 
@@ -180,14 +174,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void receiveCent(String cent) {
-        centHomes = cent;
-        centHome2 = centHomes;
-        if (txtCentHome != null) {
-            txtCentHome.setText(centHomes);
-        }
-
-    }
+//    public void receiveCent(String cent) {
+//        centHomes = cent;
+//        centHome2 = centHomes;
+//        if (txtCentHome != null) {
+//            txtCentHome.setText(centHomes);
+//        }
+//
+//    }
 
     @Override
     public void onAttach(@NonNull Context context) {

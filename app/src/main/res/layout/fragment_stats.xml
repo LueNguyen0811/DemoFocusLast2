@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.TaskFragment"
+    tools:context=".fragment.TaskFragment"
     android:background="#3E546F"
     android:id="@+id/stats_fragment">
 
@@ -27,13 +27,15 @@
                 android:src="@drawable/ic_menu"
                 android:tint="@android:color/white"
                 />
+
             <TextView
+                android:id="@+id/slogan_statistics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="17dp"
-                android:layout_marginRight="136dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginRight="129dp"
                 android:fontFamily="sans-serif-light"
                 android:text="STATISTICS"
                 android:textColor="@color/lightWhite"
@@ -43,9 +45,9 @@
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="395dp"
-                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/slogan_statistics"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="109dp"
+                android:layout_marginTop="73dp"
                 android:layout_marginRight="-3dp"
                 android:dateTextAppearance="@style/CalenderViewDateCustomText"
                 android:theme="@style/CalenderViewCustom"
@@ -61,6 +63,7 @@
             android:elevation="3dp">
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -81,32 +84,38 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="3dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="75dp"
+                android:layout_alignStart="@+id/txtCalendar"
+                android:layout_alignLeft="@+id/txtCalendar"
+                android:layout_alignTop="@+id/txtCalendar"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="42dp"
                 android:background="@color/lightWhite" />
 
             <TextView
                 android:id="@+id/txtTaskCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="124dp"
+                android:layout_alignStart="@+id/txtCalendar"
+                android:layout_alignLeft="@+id/txtCalendar"
+                android:layout_alignTop="@+id/txtCalendar"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="69dp"
                 android:fontFamily="sans-serif-black"
                 android:text="0"
                 android:textColor="@color/lightWhite"
-                android:textSize="40dp"/>
+                android:textSize="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="185dp"
+                android:layout_alignStart="@+id/txtTaskCompleted"
+                android:layout_alignLeft="@+id/txtTaskCompleted"
+                android:layout_alignTop="@+id/txtTaskCompleted"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="83dp"
                 android:fontFamily="sans-serif-light"
                 android:text="TASK COMPLETED"
                 android:textColor="@color/lightWhite"
@@ -116,10 +125,12 @@
                 android:id="@+id/txtMinutesCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="278dp"
-                android:layout_marginTop="124dp"
+                android:layout_alignStart="@+id/txtTaskCompleted"
+                android:layout_alignLeft="@+id/txtTaskCompleted"
+                android:layout_alignTop="@+id/txtTaskCompleted"
+                android:layout_marginStart="236dp"
+                android:layout_marginLeft="236dp"
+                android:layout_marginTop="-1dp"
                 android:fontFamily="sans-serif-black"
                 android:text="0"
                 android:textColor="@color/lightWhite"
@@ -128,10 +139,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="277dp"
-                android:layout_marginTop="185dp"
+                android:layout_alignStart="@+id/txtMinutesCompleted"
+                android:layout_alignLeft="@+id/txtMinutesCompleted"
+                android:layout_alignTop="@+id/txtMinutesCompleted"
+                android:layout_marginStart="-1dp"
+                android:layout_marginLeft="-1dp"
+                android:layout_marginTop="84dp"
                 android:fontFamily="sans-serif-light"
                 android:text="MINUTES SPENT"
                 android:textColor="@color/lightWhite"

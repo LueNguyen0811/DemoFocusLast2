@@ -3,22 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.LoginFragment"
+    tools:context=".fragment.LoginFragment"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/layoutLogin"
+        >
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_menu"
+            android:tint="#000000"
+            />
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/login_image"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GROW\nYOUR WORK"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:textSize="40dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#000000"
+            android:textAlignment="center"
+            />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/login_image"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GROW\nYOUR WORK"
-        android:layout_gravity="center"
-        android:layout_marginTop="200dp"
-        android:textSize="40dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Focus on the outcome not the obstacle"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:layout_marginRight="10dp"
+                android:id="@+id/btnSignIn"
+                />
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_selector"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How are work?"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
 
 </LinearLayout>

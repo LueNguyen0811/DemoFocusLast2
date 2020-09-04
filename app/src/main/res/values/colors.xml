@@ -8,5 +8,5 @@
     <color name ="lightWhite">#F9F9F9</color>
     <color name="statsBg">#3E546F</color>
     <color name="buttonSelected">#E76F52</color>
-
+    <color name="colorBlack">#000000</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.demofocuslast.Model;
+package com.example.demofocuslast.model;
 
 public class SettingModel {
     private String content;

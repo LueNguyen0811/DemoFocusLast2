@@ -1,30 +1,13 @@
-package com.example.demofocuslast.Adapter;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+package com.example.demofocuslast.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.demofocuslast.Fragment.PlantsFragment;
-import com.example.demofocuslast.Interface.SendImageListenner;
-import com.example.demofocuslast.Model.ViewPageModel;
-import com.example.demofocuslast.R;
+import com.example.demofocuslast.fragment.PlantsFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
