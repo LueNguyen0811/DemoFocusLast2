@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SignInFragment"
+    android:background="@drawable/bg_signin">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_back"
+        android:tint="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:fontFamily="sans-serif-black"
+        android:text="LOGIN"
+        android:textColor="@color/lightWhite"
+        android:textSize="34dp"
+        app:layout_constraintStart_toStartOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+    <LinearLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toStartOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        android:orientation="vertical">
+
+        <EditText
+            android:drawableLeft="@drawable/ic_username"
+            android:drawablePadding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:hint="UserName"
+            android:textSize="15dp"
+            android:textColorHint="#919191"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:passwordToggleEnabled="true"
+            app:endIconMode="password_toggle"
+            android:background="@drawable/input_bg"
+            app:startIconTint="@color/white"
+            android:textColorHint="#919191"
+            app:passwordToggleTint="@color/white"
+            android:paddingLeft="7dp"
+            android:paddingBottom="10dp"
+
+            app:startIconDrawable="@drawable/ic_pass"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtSignPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingRight="20dp"
+                android:textSize="15dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:text="Remember Me"
+                android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/txtForgetPassword"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forget Password ? "
+                android:textColor="@color/white"
+                android:gravity="right"
+                android:fontFamily="sans-serif-black"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:background="@drawable/sign_bg"
+            android:textColor="#2863C5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-black"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:id="@+id/txtCreateAccount"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/lightWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CREATE ACCOUNT"
+            />
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="2dp"
+            android:background="@color/lightWhite"/>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

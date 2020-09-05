@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#353739">
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtImmediately"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stop Task Immediately"
+                android:textColor="@color/lightWhite"
+                android:gravity="left"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-black"
+                />
+            <TextView
+                android:id="@+id/txtAfter30s"
+                android:paddingTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stop Task After 30 Seconds"
+                android:textColor="@color/lightWhite"
+                android:gravity="left"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-black"
+                />
+            <TextView
+                android:id="@+id/txtNever"
+                android:paddingTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Never Interrupt A task"
+                android:textColor="@color/lightWhite"
+                android:gravity="left"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-black"
+                />
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

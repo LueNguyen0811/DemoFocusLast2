@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "392053597088",
+    "firebase_url": "https://demofocuslast.firebaseio.com",
+    "project_id": "demofocuslast",
+    "storage_bucket": "demofocuslast.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392053597088:android:a3d8d8992737e3cf317ac5",
+        "android_client_info": {
+          "package_name": "com.example.demofocuslast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392053597088-7nobcengcn47u720svvbv76jotr7fpqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKhyjOERWh1L2jIEesfwB6ix9HNg59ubk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392053597088-7nobcengcn47u720svvbv76jotr7fpqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
