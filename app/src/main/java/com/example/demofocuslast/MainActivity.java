@@ -177,11 +177,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        badgesFragment.recieveText(textTotalTask,textTotalMinutes);
     }
 
-    @Override
-    public void sendPhoneNumber(String phoneNumber) {
-        decodeFragment.receiveTextPhone(phoneNumber);
-    }
-
 
     @Override
     public void sendImage(int homeImage) {
